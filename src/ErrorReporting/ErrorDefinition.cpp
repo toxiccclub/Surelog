@@ -506,6 +506,9 @@ bool ErrorDefinition::init() {
     "variable \"%s\" declared without explicit type");
   rec(LINT_PARAMETR_DYNAMIC_ARRAY, ERROR, LINT,
     "parameter \"%s\" uses unsized (dynamic) unpacked array dimension");
+  rec(LINT_PROTOTYPE_RETURN_DATA_TYPE, ERROR, LINT,
+    "Function prototype \"%s\" missing return data type");
+
 
 
   return true;
