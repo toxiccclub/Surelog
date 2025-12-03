@@ -496,6 +496,9 @@ bool ErrorDefinition::init() {
   rec(UHDM_FORCING_UNSIGNED_TYPE, WARNING, UHDM,
       "Critical: Forcing signal to unsigned type due to unsigned port binding "
       "\"%s\"");
+  rec(LINT_CLASS_VARIABLE_LIFETIME, ERROR, LINT,
+    "Class variable '%s' cannot use automatic lifetime");
+
   return true;
 }
 
