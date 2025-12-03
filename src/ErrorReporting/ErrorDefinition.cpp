@@ -498,6 +498,8 @@ bool ErrorDefinition::init() {
       "\"%s\"");
   rec(LINT_CLASS_VARIABLE_LIFETIME, ERROR, LINT,
     "Class variable '%s' cannot use automatic lifetime");
+  rec(LINT_DPI_DECLARATION_STRING, ERROR, LINT,
++      "expecting \"DPI-C\" instead of \"%s\"");
 
   return true;
 }
