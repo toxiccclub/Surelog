@@ -504,6 +504,8 @@ bool ErrorDefinition::init() {
     "hierarchical interface identifier '%s' is not allowed");
   rec(LINT_IMPLICIT_DATA_TYPE, ERROR, LINT, 
     "variable \"%s\" declared without explicit type");
+  rec(LINT_PARAMETR_DYNAMIC_ARRAY, ERROR, LINT,
+    "parameter \"%s\" uses unsized (dynamic) unpacked array dimension");
 
 
   return true;
