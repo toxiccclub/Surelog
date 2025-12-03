@@ -510,6 +510,9 @@ bool ErrorDefinition::init() {
     "Function prototype \"%s\" missing return data type");
   rec(LINT_REPETITION_IN_SEQUENCE, ERROR, LINT,
     "sequence \"%s\" uses both goto '[->]' and non-consecutive '[=]' repetitions");
+  rec(LINT_FATAL_SYSCALL, ERROR, LINT,
+    "$fatal system call violation: %s");
+
 
 
 
