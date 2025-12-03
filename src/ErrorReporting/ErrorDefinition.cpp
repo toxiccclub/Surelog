@@ -499,7 +499,10 @@ bool ErrorDefinition::init() {
   rec(LINT_CLASS_VARIABLE_LIFETIME, ERROR, LINT,
     "Class variable '%s' cannot use automatic lifetime");
   rec(LINT_DPI_DECLARATION_STRING, ERROR, LINT,
-+      "expecting \"DPI-C\" instead of \"%s\"");
+          "expecting \"DPI-C\" instead of \"%s\"");
+  rec(LINT_HIERARCHICAL_INTERFACE_IDENTIFIER, ERROR, LINT,
+    "hierarchical interface identifier '%s' is not allowed");
+
 
   return true;
 }
