@@ -508,6 +508,9 @@ bool ErrorDefinition::init() {
     "parameter \"%s\" uses unsized (dynamic) unpacked array dimension");
   rec(LINT_PROTOTYPE_RETURN_DATA_TYPE, ERROR, LINT,
     "Function prototype \"%s\" missing return data type");
+  rec(LINT_REPETITION_IN_SEQUENCE, ERROR, LINT,
+    "sequence \"%s\" uses both goto '[->]' and non-consecutive '[=]' repetitions");
+
 
 
 
