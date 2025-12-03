@@ -502,6 +502,8 @@ bool ErrorDefinition::init() {
           "expecting \"DPI-C\" instead of \"%s\"");
   rec(LINT_HIERARCHICAL_INTERFACE_IDENTIFIER, ERROR, LINT,
     "hierarchical interface identifier '%s' is not allowed");
+  rec(LINT_IMPLICIT_DATA_TYPE, ERROR, LINT, 
+    "variable \"%s\" declared without explicit type");
 
 
   return true;
