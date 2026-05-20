@@ -249,8 +249,13 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     }
     case VObjectType::paSubroutine_call_statement: {
       NodeId Subroutine_call = fC->Child(the_stmt);
-      stmt =
-          compileTfCall(component, fC, Subroutine_call, compileDesign, pstmt);
+      if (fC->Type(Subroutine_call) == VObjectType::paStd_randomize_call) {
+        stmt = compileStdRandomizeCall(component, fC, Subroutine_call,
+                                       compileDesign, pstmt);
+      } else {
+        stmt =
+            compileTfCall(component, fC, Subroutine_call, compileDesign, pstmt);
+      }
       break;
     }
     case VObjectType::paSystem_task: {
@@ -3178,6 +3183,46 @@ UHDM::method_func_call* CompileHelper::compileRandomizeCall(
     }
   }
   return result;
+}
+
+UHDM::method_func_call* CompileHelper::compileStdRandomizeCall(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pexpr) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  method_func_call* func_call = s.MakeMethod_func_call();
+  func_call->VpiName("std::randomize");
+  func_call->VpiParent(pexpr);
+  // Tree (Child + Sibling chain under Std_randomize_call):
+  //   Package_scope [sibling: List_of_arguments] [sibling: WITH] [sibling:
+  //   Constraint_block]
+  NodeId Package_scope = fC->Child(nodeId);
+  NodeId next = fC->Sibling(Package_scope);
+  NodeId List_of_args;
+  NodeId Constraint_block;
+  if (fC->Type(next) == VObjectType::paList_of_arguments) {
+    List_of_args = next;
+    next = fC->Sibling(List_of_args);
+  }
+  
+  if (fC->Type(next) == VObjectType::paWITH) {
+    next = fC->Sibling(next);
+  }
+  if (fC->Type(next) == VObjectType::paConstraint_block) {
+    Constraint_block = next;
+  }
+  if (List_of_args) {
+    VectorOfany* arguments =
+        compileTfCallArguments(component, fC, List_of_args, compileDesign,
+                               Reduce::No, func_call, nullptr, false);
+    func_call->Tf_call_args(arguments);
+  }
+  if (Constraint_block) {
+    if (UHDM::any* cblock = compileConstraintBlock(
+            component, fC, Constraint_block, compileDesign, func_call)) {
+      func_call->With(cblock);
+    }
+  }
+  return func_call;
 }
 
 UHDM::any* CompileHelper::compileConstraintBlock(DesignComponent* component,

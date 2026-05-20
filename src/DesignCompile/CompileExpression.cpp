@@ -1953,6 +1953,11 @@ UHDM::any *CompileHelper::compileExpression(
                                         compileDesign, pexpr);
           break;
         }
+        case VObjectType::paStd_randomize_call: {
+          result = compileStdRandomizeCall(component, fC, child, compileDesign,
+                                           pexpr);
+          break;
+        }
         case VObjectType::paPattern: {
           NodeId Sibling = fC->Sibling(child);
           if (Sibling) {

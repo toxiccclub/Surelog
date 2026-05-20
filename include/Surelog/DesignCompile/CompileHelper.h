@@ -487,6 +487,12 @@ class CompileHelper final {
                                                CompileDesign* compileDesign,
                                                UHDM::any* pexpr);
 
+  UHDM::method_func_call* compileStdRandomizeCall(DesignComponent* component,
+                                                  const FileContent* fC,
+                                                  NodeId nodeId,
+                                                  CompileDesign* compileDesign,
+                                                  UHDM::any* pexpr);
+
   UHDM::any* compileConstraintBlock(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign,

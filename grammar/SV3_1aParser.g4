@@ -2602,7 +2602,9 @@ loop_variables: identifier? (comma identifier?)*;
 
 subroutine_call_statement
   : subroutine_call SEMICOLON
+  | std_randomize_call SEMICOLON
   | VOID TICK OPEN_PARENS subroutine_call CLOSE_PARENS SEMICOLON
+  | VOID TICK OPEN_PARENS std_randomize_call CLOSE_PARENS SEMICOLON
   ;
 
 assertion_item
@@ -3214,6 +3216,15 @@ randomize_call
   )?
   ;
 
+// IEEE 1800-2017 §18.12, Syntax 18-11: scope_randomize
+std_randomize_call
+  : package_scope RANDOMIZE attribute_instance* (
+    OPEN_PARENS list_of_arguments CLOSE_PARENS
+  )? (
+    WITH (OPEN_PARENS identifier_list? CLOSE_PARENS)? constraint_block
+  )?
+  ;
+
 method_call_root
   : implicit_class_handle
   | (class_scope | package_scope)? dollar_root_keyword? identifier (
@@ -3589,6 +3600,7 @@ complex_func_call
 
 primary
   : primary_literal
+  | std_randomize_call
   | complex_func_call
   | (concatenation | multiple_concatenation) (
     OPEN_BRACKET range_expression CLOSE_BRACKET

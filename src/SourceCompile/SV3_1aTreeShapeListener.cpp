@@ -1906,6 +1906,14 @@ void SV3_1aTreeShapeListener::exitRandomize_call(
   addVObject(ctx, VObjectType::paRandomize_call);
 }
 
+void SV3_1aTreeShapeListener::exitStd_randomize_call(
+    SV3_1aParser::Std_randomize_callContext *ctx) {
+  if (ctx->WITH()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->WITH(), VObjectType::paWITH);
+  }
+  addVObject(ctx, VObjectType::paStd_randomize_call);
+}
+
 void SV3_1aTreeShapeListener::exitDeferred_immediate_assert_statement(
     SV3_1aParser::Deferred_immediate_assert_statementContext *ctx) {
   if (ctx->Pound_delay()) {
